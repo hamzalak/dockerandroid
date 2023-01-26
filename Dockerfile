@@ -21,6 +21,8 @@ RUN dpkg --add-architecture i386 && \
     apt-get install -y curl expect git libc6:i386 libgcc1:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386 openjdk-11-jdk wget unzip vim && \
     apt-get clean
 
+RUN  apt-get install -y  python
+
 RUN groupadd android && useradd -d /opt/android-sdk-linux -g android android
 
 COPY tools /opt/tools
@@ -34,6 +36,5 @@ RUN /opt/android-sdk-linux/cmdline-tools/tools/bin/sdkmanager "cmdline-tools;lat
 RUN /opt/android-sdk-linux/cmdline-tools/tools/bin/sdkmanager "build-tools;${SDK_VERSION}"
 RUN /opt/android-sdk-linux/cmdline-tools/tools/bin/sdkmanager "platform-tools"
 RUN /opt/android-sdk-linux/cmdline-tools/tools/bin/sdkmanager "platforms;android-30"
-RUN /opt/android-sdk-linux/cmdline-tools/tools/bin/sdkmanager "system-images;android-30;google_apis;x86_64"
 
 CMD /opt/tools/entrypoint.sh built-in
